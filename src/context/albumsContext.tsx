@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 
-const AlbumsContext = createContext(null);
+export const AlbumsContext = createContext(null);
 
 export const AlbumsProvider = ({ children }) => {
   const [albums, setAlbums] = useState([]);
