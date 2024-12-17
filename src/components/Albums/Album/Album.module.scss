@@ -1,3 +1,38 @@
 .album {
   width: 25%;
+  cursor: pointer;
+
+
+  .imageContainer {
+    position: relative;
+
+    &:hover {
+      .hoverImage {
+        animation: 1.5s glow alternate infinite;
+        opacity: 1;
+      }
+    }
+
+    .mainImage {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hoverImage {
+      filter: blur(24px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all ease-in-out 0.5s;
+      opacity: 0;
+      z-index: 1;
+    }
+  }
+
+}
+
+@keyframes glow {
+  to {
+    transform: scale(1.05);
+  }
 }
