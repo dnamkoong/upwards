@@ -1,7 +1,5 @@
-import Header from './components/Header/Header'
-
-import './App.scss'
 import { useAlbumsHook } from './hooks/useAlbums';
+// import Header from './components/Header/Header'
 import Albums from './components/Albums/Albums';
 
 function App() {
@@ -19,7 +17,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Albums />
     </>
   )
