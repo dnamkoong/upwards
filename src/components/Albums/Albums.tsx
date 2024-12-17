@@ -18,7 +18,7 @@ const Albums = () => {
     const [name, type] = data.split('-');
     const sortKeys = {
       artist: 'im:artist.label',
-      title: 'title.label',
+      title: 'im:name.label',
       releaseDate: 'im:releaseDate.label',
       itemCount: 'im:itemCount.label'
     };

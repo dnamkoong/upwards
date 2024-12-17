@@ -1,7 +1,6 @@
 import styles from './Album.module.scss';
 
 const Album = ({ album }) => {
-  // console.log(album['im:artist'].label);
   return (
     <li className={styles.album}>
       <div className={styles.imageContainer}>
@@ -17,7 +16,7 @@ const Album = ({ album }) => {
           className={styles.hoverImage}
         />
       </div>
-      <h3>{album.title.label}</h3>
+      <h3>{album['im:name'].label}</h3>
       <p>{album['im:artist'].label}</p>
     </li>
   )
