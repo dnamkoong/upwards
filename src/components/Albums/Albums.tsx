@@ -16,63 +16,33 @@ const Albums = () => {
 
   const sortAlbumsHandler = (data) => {
     const [name, type] = data.split('-');
+    const sortKeys = {
+      artist: 'im:artist.label',
+      title: 'title.label',
+      releaseDate: 'im:releaseDate.label',
+      itemCount: 'im:itemCount.label'
+    };
+    const key = sortKeys[name];
 
-    const sortAlbums = [...sortedAlbums].sort((a, b) => {
-      if (name === 'artist') {
-        const artistA = a['im:artist'].label;
-        const artistB = b['im:artist'].label;
+    if (!key) return;
 
-        if (type === 'asc') {
-          return artistA.localeCompare(artistB);
-        } else if (type === 'desc') {
-          return artistB.localeCompare(artistA);
-        }
-      }
+    const [mainKey, subKey] = key.split('.');
 
-      if (name === 'title') {
-        const titleA = a['title'].label;
-        const titleB = b['title'].label;
+    const sorted = [...sortedAlbums].sort((a, b) => {
+      const valueA = subKey ? a[mainKey][subKey] : a[mainKey];
+      const valueB = subKey ? b[mainKey][subKey] : b[mainKey];
 
-        if (type === 'asc') {
-          return titleA.localeCompare(titleB);
-        } else if (type === 'desc') {
-          return titleB.localeCompare(titleA);
-        }
-      }
-
-      if (name === 'releaseDate') {
-        const releaseDateA = a['im:releaseDate'].label;
-        const releaseDateB = b['im:releaseDate'].label;
-
-        if (type === 'asc') {
-          return releaseDateA.localeCompare(releaseDateB);
-        } else if (type === 'desc') {
-          return releaseDateB.localeCompare(releaseDateA);
-        }
-      }
-
-      if (name === 'itemCount') {
-        const itemCountA = a['im:itemCount'].label;
-        const itemCountB = b['im:itemCount'].label;
-
-        if (type === 'asc') {
-          return itemCountA.localeCompare(itemCountB);
-        } else if (type === 'desc') {
-          return itemCountB.localeCompare(itemCountA);
-        }
-      }
-
-      return 0;
+      return type === 'asc'
+        ? valueA.localeCompare(valueB)
+        : valueB.localeCompare(valueA)
     });
 
-    setSortedAlbums(sortAlbums);
+    setSortedAlbums(sorted);
   }
 
   return (
     <div className={styles.albums}>
-      <h2>Albums</h2>
       <Sort handleSortData={handleSortData} />
-      <h3>XX: {sortedAlbums[0]['im:name'].label}</h3>
       <ul>
         {sortedAlbums.map((album) => (
           <Album
