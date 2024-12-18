@@ -4,7 +4,7 @@ import Album from "./Album/Album";
 import styles from './Albums.module.scss';
 import Sort from "./Sort/Sort";
 import Search from "./Search/Search";
-import { useDebounce } from "../../utils/useDebounce";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const Albums = () => {
   const { albums } = useAlbumsHook();
