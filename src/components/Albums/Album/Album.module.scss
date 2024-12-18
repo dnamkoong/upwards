@@ -29,6 +29,9 @@
     }
   }
 
+  &.active {
+    pointer-events: none;
+  }
 }
 
 @keyframes glow {
