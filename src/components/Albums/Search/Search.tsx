@@ -1,14 +1,16 @@
 const Search = ({ handleSearch, query }) => {
-  const handleQuery = (data) => {
-    handleSearch(data)
-  }
-
   return (
-    <input
-      type="text"
-      value={query}
-      onChange={e => handleQuery(e.target.value)}
-    />
+    <>
+      <label>
+        Search:
+        <input
+          type="text"
+          value={query}
+          onChange={e => handleSearch(e.target.value)}
+          placeholder="Search"
+        />
+      </label>
+    </>
   )
 }
 

@@ -23,10 +23,14 @@ const Albums = () => {
         albums.filter((album) => {
           const artist = album['im:artist'].label.toLowerCase();
           const title = album['im:name'].label.toLowerCase();
+          const category = album.category.attributes.label.toLowerCase();
+          const rights = album.rights.label.toLowerCase();
 
           return (
             artist.includes(searchLowerCase)
             || title.includes(searchLowerCase)
+            || category.includes(searchLowerCase)
+            || rights.includes(searchLowerCase)
           )
         })
       )
