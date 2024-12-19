@@ -22,6 +22,10 @@ const Sort = ({ handleSortData }: SortProps) => {
         onChange={e => handleSort(e.target.value)}
         value={sortBy}
       >
+        <option value="" disabled>
+          Select
+        </option>
+
         {sortOptions.map((option) => (
           <option
             key={`${option.name}-${option.type}`}
