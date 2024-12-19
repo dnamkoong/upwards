@@ -1,4 +1,9 @@
-const Search = ({ handleSearch, query }) => {
+interface SearchProps {
+  handleSearch: (search: string) => void;
+  query: string;
+}
+
+const Search = ({ handleSearch, query }: SearchProps) => {
   return (
     <>
       <label>

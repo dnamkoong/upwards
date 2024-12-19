@@ -1,4 +1,4 @@
-import { useAlbumsHook } from './hooks/useAlbums';
+import { useAlbums } from './hooks/useAlbums';
 // import Header from './components/Header/Header'
 import Albums from './components/Albums/Albums';
 
@@ -6,7 +6,7 @@ function App() {
   const {
     loading,
     error
-  } = useAlbumsHook();
+  } = useAlbums();
 
   if (loading) {
     return <h2>Loading: {loading}</h2>

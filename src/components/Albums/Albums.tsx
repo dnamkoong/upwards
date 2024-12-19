@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import { useAlbumsHook } from "../../hooks/useAlbums";
+import { useAlbums } from "../../hooks/useAlbums";
 import Album from "./Album/Album";
 import styles from './Albums.module.scss';
 import Sort from "./Sort/Sort";
 import Search from "./Search/Search";
 import { useDebounce } from "../../hooks/useDebounce";
+import { AlbumInterface } from "../../types/albums";
+import { SortedAlbumsInterface, SortKeysInterface } from "../../types/sort";
 
 const Albums = () => {
-  const { albums } = useAlbumsHook();
+  const { albums } = useAlbums();
 
-  const [sortedAlbums, setSortedAlbums] = useState(albums);
-  const [search, setSearch] = useState('');
-  const debouncedSearch = useDebounce(search);
+  const [sortedAlbums, setSortedAlbums] = useState<AlbumInterface[]>(albums);
+  const [search, setSearch] = useState<string>('');
+  const debouncedSearch = useDebounce<string>(search);
 
   useEffect(() => {
     if (!debouncedSearch) {
@@ -37,9 +39,9 @@ const Albums = () => {
     }
   }, [albums, debouncedSearch])
 
-  const handleSortData = (data) => {
+  const handleSortData = (data: string) => {
     const [name, type] = data.split('-');
-    const sortKeys = {
+    const sortKeys: SortKeysInterface = {
       artist: 'im:artist.label',
       title: 'im:name.label',
       releaseDate: 'im:releaseDate.label',
@@ -51,9 +53,18 @@ const Albums = () => {
 
     const [mainKey, subKey] = key.split('.');
 
-    const sorted = [...sortedAlbums].sort((a, b) => {
-      const valueA = subKey ? a[mainKey][subKey] : a[mainKey];
-      const valueB = subKey ? b[mainKey][subKey] : b[mainKey];
+    const sorted = [...sortedAlbums].sort((a: SortedAlbumsInterface, b: SortedAlbumsInterface) => {
+      const valueA = a[mainKey]?.[subKey];
+      const valueB = b[mainKey]?.[subKey];
+
+      if (name === 'releaseDate') {
+        const releaseA = new Date(valueA);
+        const releaseB = new Date(valueB);
+
+        return type === 'asc'
+          ? releaseA.getTime() - releaseB.getTime()
+          : releaseB.getTime() - releaseA.getTime()
+      }
 
       return type === 'asc'
         ? valueA.localeCompare(valueB)
@@ -63,7 +74,7 @@ const Albums = () => {
     setSortedAlbums(sorted);
   }
 
-  const handleSearch = (data) => {
+  const handleSearch = (data: string) => {
     setSearch(data);
   }
 

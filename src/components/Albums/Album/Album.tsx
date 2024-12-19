@@ -2,11 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Album.module.scss';
 import Modal from '../../Modal/Modal';
+import { AlbumInterface } from '../../../types/albums';
 
-const Album = ({ album }) => {
-  const [showModal, setShowModal] = useState(false);
+interface AlbumProps {
+  album: AlbumInterface;
+}
 
-  const modalRef = useRef(null);
+const Album = ({ album }: AlbumProps) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (showModal) {
@@ -20,16 +25,16 @@ const Album = ({ album }) => {
     }
   }, [showModal]);
 
-  const handleClickOutsideModal = (event) => {
+  const handleClickOutsideModal = (event: MouseEvent) => {
     if (
       modalRef.current &&
-      !modalRef.current.contains(event.target)
+      !modalRef.current.contains(event.target as Node)
     ) {
       setShowModal(false)
     }
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       setShowModal(false);
     }

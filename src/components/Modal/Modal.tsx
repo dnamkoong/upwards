@@ -1,7 +1,14 @@
 import styles from './Modal.module.scss'
 import { useGetTracklist } from '../../hooks/useGetTracklist';
+import { AlbumInterface } from '../../types/albums';
 
-const Modal = ({ album, onClose, modalRef }) => {
+interface ModalProps {
+  album: AlbumInterface;
+  onClose: () => void;
+  modalRef: React.Ref<HTMLDivElement>;
+}
+
+const Modal = ({ album, onClose, modalRef }: ModalProps) => {
   const {
     tracklist,
     loading,

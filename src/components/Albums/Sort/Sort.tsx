@@ -1,21 +1,15 @@
 import { useState } from "react";
 import styles from "./Sort.module.scss";
+import { sortOptions } from "../../../utils/sortOptions";
 
-const sortOptions = [
-  { name: 'artist', label: 'Artist (A-Z)', type: 'asc' },
-  { name: 'artist', label: 'Artist (Z-A)', type: 'desc' },
-  { name: 'title', label: 'Album (A-Z)', type: 'asc' },
-  { name: 'title', label: 'Album (Z-A)', type: 'desc' },
-  { name: 'releaseDate', label: 'Release Date (New)', type: 'asc' },
-  { name: 'releaseDate', label: 'Release Date (Old)', type: 'desc' },
-  { name: 'itemCount', label: 'Track Count (^)', type: 'asc' },
-  { name: 'itemCount', label: 'Tracks (v)', type: 'desc' }
-];
+interface SortProps {
+  handleSortData: (data: string) => void;
+}
 
-const Sort = ({ handleSortData }) => {
-  const [sortBy, setSortBy] = useState('');
+const Sort = ({ handleSortData }: SortProps) => {
+  const [sortBy, setSortBy] = useState<string>('');
 
-  const handleSort = (data) => {
+  const handleSort = (data: string) => {
     setSortBy(data);
     handleSortData(data);
   }
