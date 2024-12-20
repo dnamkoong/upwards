@@ -1,6 +1,7 @@
 import { useAlbums } from './hooks/useAlbums';
 // import Header from './components/Header/Header'
 import Albums from './components/Albums/Albums';
+import './styles/_global.scss';
 
 function App() {
   const {

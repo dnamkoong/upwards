@@ -1,50 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import classNames from 'classnames';
 import styles from './Album.module.scss';
 import Modal from '../../Modal/Modal';
 import { AlbumInterface } from '../../../types/albums';
+import { useDetectClick } from '../../../hooks/useDetectClick';
 
 interface AlbumProps {
   album: AlbumInterface;
 }
 
 const Album = ({ album }: AlbumProps) => {
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  const modalRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (showModal) {
-      document.addEventListener('mousedown', handleClickOutsideModal);
-      document.addEventListener('keydown', handleKeyDown);
-
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutsideModal)
-        document.removeEventListener('keydown', handleKeyDown);
-      }
-    }
-  }, [showModal]);
-
-  const handleClickOutsideModal = (event: MouseEvent) => {
-    if (
-      modalRef.current &&
-      !modalRef.current.contains(event.target as Node)
-    ) {
-      setShowModal(false)
-    }
-  };
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      setShowModal(false);
-    }
-  }
+  const {
+    isActive,
+    setIsActive,
+    hookRef
+  } = useDetectClick();
 
   return (
     <>
-      <li
-        className={`${styles.album} ${showModal ? styles.active : "xx"}`}
-        onClick={() => setShowModal(true)}
+      <div
+        className={
+          classNames(styles.album, {
+            [styles.active]: isActive
+          })
+        }
+        onClick={() => setIsActive(true)}
       >
         <div className={styles.imageContainer}>
           <img
@@ -61,12 +41,12 @@ const Album = ({ album }: AlbumProps) => {
         </div>
         <h3>{album['im:name'].label}</h3>
         <p>{album['im:artist'].label}</p>
-      </li>
-      {showModal && createPortal(
+      </div>
+      {isActive && createPortal(
         <Modal
           album={album}
-          modalRef={modalRef}
-          onClose={() => setShowModal(false)}
+          hookRef={hookRef}
+          onClose={() => setIsActive(false)}
         />,
         document.body
       )}

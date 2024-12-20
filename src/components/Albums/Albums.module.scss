@@ -1,7 +1,12 @@
 .albums {
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-  }
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.albumContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: start;
 }

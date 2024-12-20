@@ -1,37 +1,57 @@
+@use '../../../styles/mixins';
+
 .album {
-  width: 25%;
+  flex: 0 1 calc(20% - 20px);
   cursor: pointer;
+  transition: .3s ease-in-out;
 
+  @include mixins.lg {
+    flex: 0 1 calc(25% - 20px);
+  }
 
-  .imageContainer {
-    position: relative;
+  @include mixins.md {
+    flex: 0 1 calc(33.333% - 20px);
+  }
 
-    &:hover {
-      .hoverImage {
-        animation: 1.5s glow alternate infinite;
-        opacity: 1;
-      }
-    }
+  @include mixins.sm {
+    flex: 1 1 calc(100% - 20px);
+  }
 
-    .mainImage {
-      position: relative;
-      z-index: 2;
-    }
-
+  &:hover {
     .hoverImage {
-      filter: blur(24px);
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: all ease-in-out 0.5s;
-      opacity: 0;
-      z-index: 1;
+      animation: 1.5s glow alternate infinite;
+      opacity: 1;
     }
   }
 
   &.active {
     pointer-events: none;
   }
+}
+
+.imageContainer {
+  position: relative;
+
+  img {
+    width: 100%;
+    border-radius: 2px;
+  overflow: hidden;
+  }
+}
+
+.mainImage {
+  position: relative;
+  z-index: 2;
+}
+
+.hoverImage {
+  filter: blur(24px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all ease-in-out 0.5s;
+  opacity: 0;
+  z-index: 1;
 }
 
 @keyframes glow {

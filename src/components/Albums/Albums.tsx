@@ -21,6 +21,7 @@ const Albums = () => {
     } else {
       const searchLowerCase =
       debouncedSearch.toLowerCase();
+
       setSortedAlbums(
         albums.filter((album) => {
           const artist = album['im:artist'].label.toLowerCase();
@@ -80,20 +81,21 @@ const Albums = () => {
 
   return (
     <div className={styles.albums}>
-      <Sort handleSortData={handleSortData} />
       <Search
         handleSearch={handleSearch}
         query={search}
       />
 
-      <ul>
+      <Sort handleSortData={handleSortData} />
+
+      <div className={styles.albumContainer}>
         {sortedAlbums.map((album) => (
           <Album
             key={album.id.attributes['im:id']}
             album={album}
           />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
