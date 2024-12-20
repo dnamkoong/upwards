@@ -1,4 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search';
+import { Icon } from '../../Icon/Icon';
 import styles from './Search.module.scss';
 
 interface SearchProps {
@@ -10,7 +10,7 @@ const Search = ({ handleSearch, query }: SearchProps) => {
   return (
     <div className={styles.search}>
       <div className={styles.icon}>
-        <SearchIcon />
+        <Icon type='Search' />
       </div>
 
       <input

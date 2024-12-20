@@ -1,15 +1,19 @@
-.sort {
+.sortBy {
   display: inline-block;
   position: relative;
+  margin-bottom: 20px;
+
+  +.sortBy {
+    margin-left: 10px;
+  }
 }
 
-.sortButton {
+.sortByButton {
   display: flex;
   align-items: center;
   padding: 5px;
   border: 1px solid gray;
   border-radius: 2px;
-  margin-bottom: 5px;
   gap: 2px;
   transition: .3s ease-in-out;
 

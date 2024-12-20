@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import { useAlbums } from "../../hooks/useAlbums";
 import Album from "./Album/Album";
 import styles from './Albums.module.scss';
-import Sort from "./Sort/Sort";
 import Search from "./Search/Search";
 import { useDebounce } from "../../hooks/useDebounce";
 import { AlbumInterface } from "../../types/albums";
 import { SortedAlbumsInterface, SortKeysInterface } from "../../types/sort";
+import SortBy from "./SortBy/SortBy";
+import { sortOptions } from "../../utils/sortOptions";
 
 const Albums = () => {
   const { albums } = useAlbums();
 
   const [sortedAlbums, setSortedAlbums] = useState<AlbumInterface[]>(albums);
   const [search, setSearch] = useState<string>('');
+  const [category, setCategory] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string[]>([]);
   const debouncedSearch = useDebounce<string>(search);
 
   useEffect(() => {
@@ -39,6 +42,19 @@ const Albums = () => {
       )
     }
   }, [albums, debouncedSearch])
+
+  useEffect(() => {
+    const categoryList = Array.from(new Set(albums.map(album => album.category.attributes.label)));
+
+    setCategory(categoryList)
+  }, [albums])
+
+  useEffect(() => {
+    setSortedAlbums(activeCategory.length
+      ? albums.filter(album => activeCategory.includes(album.category.attributes.label))
+      : albums
+    );
+  }, [activeCategory]);
 
   const handleSortData = (data: string) => {
     const [name, type] = data.split('-');
@@ -75,6 +91,14 @@ const Albums = () => {
     setSortedAlbums(sorted);
   }
 
+  const handleCategoryData = (data: string[]) => {
+    setActiveCategory((prevState) => {
+      return prevState.includes(data)
+        ? prevState.filter((prev) => prev !== data)
+        : [...prevState, data]
+    });
+  };
+
   const handleSearch = (data: string) => {
     setSearch(data);
   }
@@ -86,7 +110,17 @@ const Albums = () => {
         query={search}
       />
 
-      <Sort handleSortData={handleSortData} />
+      <SortBy
+        type='Sort'
+        data={sortOptions}
+        handleSortByData={handleSortData}
+      />
+
+      <SortBy
+        type='Category'
+        data={category}
+        handleSortByData={handleCategoryData}
+      />
 
       <div className={styles.albumContainer}>
         {sortedAlbums.map((album) => (

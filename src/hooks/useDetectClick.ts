@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useDetectClick = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const hookRef = useRef<HTMLDivElement | null>(null);
+  const hookRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (isActive) {
