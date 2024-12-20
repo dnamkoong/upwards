@@ -1,5 +1,6 @@
-import { useGetTracklist } from '../../hooks/useGetTracklist';
+import { useEffect, useState } from 'react';
 import { AlbumInterface } from '../../types/albums';
+import { ResultsInterface, TracklistInterface } from '../../types/tracklist';
 import { msToTime } from '../../utils/time';
 import styles from './Modal.module.scss'
 
@@ -10,10 +11,27 @@ interface ModalProps {
 }
 
 const Modal = ({ album, onClose, hookRef }: ModalProps) => {
-  const {
-    tracklist,
-    loading
-  } = useGetTracklist(album.id.attributes['im:id']);
+  const [tracklist, setTracklist] = useState<TracklistInterface[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchTracklist = async () => {
+      try {
+        const response = await fetch(`https://itunes.apple.com/lookup?id=${album.id.attributes['im:id']}&entity=song`);
+        const data = await response.json() as ResultsInterface;
+        const tracklist = data.results;
+        const tracksOnly = tracklist.filter((track) => track.wrapperType === 'track');
+
+        setTracklist(tracksOnly)
+      } catch (error: any) {
+        console.log(`Error: ${error.message}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTracklist();
+  }, [album.id.attributes]);
 
   return (
     <div

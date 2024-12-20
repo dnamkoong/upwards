@@ -12,7 +12,7 @@ export const AlbumsProvider = ({ children }: { children: React.ReactNode }) => {
     const fetchAlbums = async () => {
       try {
         const response = await fetch('https://itunes.apple.com/us/rss/topalbums/limit=100/json');
-        const data = await response.json() as FeedInterface;
+        const data = (await response.json()) as FeedInterface;
         const albumsData = data.feed.entry;
 
         setAlbums(albumsData);
