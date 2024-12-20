@@ -1,5 +1,5 @@
 export interface SortOptionsInterface {
-  name: 'artist' | 'title' | 'releaseDate' | 'itemCount';
+  name: 'artist' | 'title' | 'releaseDate';
   label: string;
   type: 'asc' | 'desc';
 }

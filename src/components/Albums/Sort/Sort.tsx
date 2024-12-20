@@ -1,6 +1,9 @@
-import { useState } from "react";
-import styles from "./Sort.module.scss";
+import SortIcon from '@mui/icons-material/Sort';
+import classNames from 'classnames';
 import { sortOptions } from "../../../utils/sortOptions";
+import styles from "./Sort.module.scss";
+import { useState } from 'react';
+import { useDetectClick } from '../../../hooks/useDetectClick';
 
 interface SortProps {
   handleSortData: (data: string) => void;
@@ -8,33 +11,51 @@ interface SortProps {
 
 const Sort = ({ handleSortData }: SortProps) => {
   const [sortBy, setSortBy] = useState<string>('');
+  const {
+    isActive,
+    setIsActive,
+    hookRef
+  } = useDetectClick();
 
   const handleSort = (data: string) => {
-    setSortBy(data);
     handleSortData(data);
+    setSortBy(data);
+    setIsActive(false);
   }
 
   return (
     <div className={styles.sort}>
-      <label>Sort by:</label>
-      <select
-        name="sort"
-        onChange={e => handleSort(e.target.value)}
-        value={sortBy}
+      <button
+        className={styles.sortButton}
+        onClick={() => setIsActive(!isActive)}
       >
-        <option value="" disabled>
-          Select
-        </option>
+        Sort
+        <SortIcon fontSize="small" />
+      </button>
 
+      <div
+        className={
+          classNames(styles.dropdown, {
+            [styles.active]: isActive
+          })
+        }
+        ref={hookRef}
+      >
         {sortOptions.map((option) => (
-          <option
+          <div
             key={`${option.name}-${option.type}`}
-            value={`${option.name}-${option.type}`}
+            className={
+              classNames(styles.option, {
+                [styles.active]: sortBy === `${option.name}-${option.type}`
+              })
+            }
+            onClick={() => handleSort(`${option.name}-${option.type}`)}
           >
+
             {option.label}
-          </option>
+          </div>
         ))}
-      </select>
+      </div>
     </div>
   )
 }
