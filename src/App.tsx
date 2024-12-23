@@ -1,7 +1,7 @@
 import { useAlbums } from './hooks/useAlbums';
-// import Header from './components/Header/Header'
 import Albums from './components/Albums/Albums';
-import './styles/_global.scss';
+import Loading from './components/Loading/Loading';
+import './styles/main.scss';
 
 function App() {
   const {
@@ -10,7 +10,7 @@ function App() {
   } = useAlbums();
 
   if (loading) {
-    return <h2>Loading: {loading}</h2>
+    return <Loading />
   }
   if (error) {
     return <h2>Error: {error}</h2>
@@ -18,7 +18,6 @@ function App() {
 
   return (
     <>
-      {/* <Header /> */}
       <Albums />
     </>
   )

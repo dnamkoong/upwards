@@ -1,0 +1,43 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.loadingCircle {
+  &:before,
+  &:after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    display: block;
+    position: relative;
+    transition: 1s;
+  }
+
+  &:before {
+    background: orange;
+    left: -30px;
+    animation: 0.8s loadBefore alternate infinite;
+  }
+
+  &:after {
+    background: firebrick;
+    animation: 0.8s loadAfter alternate infinite;
+    top: -30px;
+    right: -30px;
+  }
+}
+
+@keyframes loadBefore {
+  to {
+    left: 30px;
+  }
+}
+
+@keyframes loadAfter {
+  to {
+    right: 30px
+  }
+}

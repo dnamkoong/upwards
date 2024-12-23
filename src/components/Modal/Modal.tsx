@@ -3,6 +3,7 @@ import { AlbumInterface } from '../../types/albums';
 import { ResultsInterface, TracklistInterface } from '../../types/tracklist';
 import { msToTime } from '../../utils/time';
 import styles from './Modal.module.scss'
+import Loading from '../Loading/Loading';
 
 interface ModalProps {
   album: AlbumInterface;
@@ -99,7 +100,7 @@ const Modal = ({ album, onClose, hookRef }: ModalProps) => {
               ))}
             </ul>
           </>
-        ): <p>Loading tracks...</p>}
+        ): <Loading />}
       </div>
     </div>
   )
