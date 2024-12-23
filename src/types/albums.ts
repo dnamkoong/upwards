@@ -73,6 +73,7 @@ export interface AlbumInterface {
 
 export interface AlbumsInterface {
   albums: AlbumInterface[];
+  category: string[];
   loading: boolean;
   error: string | null;
 }
