@@ -42,8 +42,8 @@ const SortBy = ({ type, handleSortByData, dataSort, dataCategory }: SortByProps)
   return (
     <div className={styles.sortBy}>
       <button
-        className={styles.sortByButton}
         onClick={() => setIsActive(!isActive)}
+        className='mainButton'
       >
         {type}
         <Icon type={type} />

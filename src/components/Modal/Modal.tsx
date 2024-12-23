@@ -47,7 +47,12 @@ const Modal = ({ album, onClose, hookRef }: ModalProps) => {
         />
       </div>
 
-      <button onClick={onClose}>X</button>
+      <button
+        onClick={onClose}
+        className='closeButton'
+      >
+        X
+      </button>
 
       <div className={styles.column}>
         <img

@@ -25,26 +25,6 @@
   h2, h3, p, span, button {
     color: #fff;
   }
-
-  button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    outline: none;
-    background: none;
-    padding: 0;
-    line-height: 1;
-    border-radius: 100%;
-    border: none;
-    width: 25px;
-    height: 25px;
-    transition: .3s ease-in-out;
-
-    &:hover {
-      background: #fff;
-      color: #000;
-    }
-  }
 }
 
 .backgroundImg {

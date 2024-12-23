@@ -1,25 +1,5 @@
 .sortBy {
-  display: inline-block;
   position: relative;
-  margin-bottom: 20px;
-
-  +.sortBy {
-    margin-left: 10px;
-  }
-}
-
-.sortByButton {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  border: 1px solid gray;
-  border-radius: 2px;
-  gap: 2px;
-  transition: .3s ease-in-out;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
 }
 
 .dropdown {

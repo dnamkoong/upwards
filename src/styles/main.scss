@@ -9,3 +9,43 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+
+.mainButton {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  gap: 2px;
+  transition: .3s ease-in-out;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  outline: none;
+  background: none;
+  padding: 0;
+  line-height: 1;
+  border-radius: 100%;
+  border: none;
+  width: 25px;
+  height: 25px;
+  transition: .3s ease-in-out;
+
+  &:hover {
+    background: #fff;
+    color: #000;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}

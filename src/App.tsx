@@ -156,26 +156,28 @@ function App() {
         query={search}
       />
 
-      <SortBy
-        type='Sort'
-        dataSort={sortOptions}
-        handleSortByData={handleSortData}
-      />
+      <div className="buttonContainer">
+        <SortBy
+          type='Sort'
+          dataSort={sortOptions}
+          handleSortByData={handleSortData}
+        />
 
-      <SortBy
-        type='Category'
-        dataCategory={category}
-        handleSortByData={handleCategoryData}
-      />
+        <SortBy
+          type='Category'
+          dataCategory={category}
+          handleSortByData={handleCategoryData}
+        />
 
-      <button
-        onClick={() => setShowFavorites((prev) => !prev)}
-        disabled={!favorites.length}
-      >
-        <Icon type='Favorite'  />
-        Favorites
-      </button>
-
+        <button
+          onClick={() => setShowFavorites((prev) => !prev)}
+          disabled={!favorites.length}
+          className="mainButton"
+        >
+          Favorites
+          <Icon type='Favorite'  />
+        </button>
+      </div>
 
       <div className={styles.albumContainer}>
         {sortedAlbums.map((album) => (
