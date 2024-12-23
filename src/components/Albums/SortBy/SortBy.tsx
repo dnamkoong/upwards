@@ -39,7 +39,6 @@ const SortBy = ({ type, handleSortByData, data }: SortByProps) => {
       <button
         className={styles.sortByButton}
         onClick={() => setIsActive(!isActive)}
-        ref={hookRef}
       >
         {type}
         <Icon type={type} />
@@ -51,7 +50,7 @@ const SortBy = ({ type, handleSortByData, data }: SortByProps) => {
             [styles.active]: isActive
           })
         }
-        // ref={hookRef}
+        ref={hookRef}
       >
 
         {type === 'Sort' ? (
