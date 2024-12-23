@@ -20,6 +20,8 @@ const SortBy = ({ type, handleSortByData, dataSort, dataCategory }: SortByProps)
     hookRef
   } = useDetectClick();
 
+  // Handles Default and Category dropdown sort logic
+  // emits string or array of strings to parent
   const handleSort = (data: string) => {
     handleSortByData(data);
     setIsActive(false);
@@ -28,7 +30,9 @@ const SortBy = ({ type, handleSortByData, dataSort, dataCategory }: SortByProps)
       type === 'Category'
         ? Array.isArray(prevState)
           ? prevState.includes(data)
+          // if 'prevState' is an array and includeds 'data', filter 'prevState'
             ? prevState.filter((prev) => prev !== data)
+            // else add to end of existing array
             : [...prevState, data]
           : [data]
         : data

@@ -16,6 +16,7 @@ const Modal = ({ album, onClose, hookRef }: ModalProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Get tracks from selected album
     const fetchTracklist = async () => {
       try {
         const response = await fetch(`https://itunes.apple.com/lookup?id=${album.id.attributes['im:id']}&entity=song`);

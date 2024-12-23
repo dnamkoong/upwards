@@ -25,11 +25,14 @@ function App() {
 
   useEffect(() => {
     if (!debouncedSearch) {
+      // Set albums to be displayed as default order from API
       setSortedAlbums(albums);
     } else {
       const searchLowerCase =
       debouncedSearch.toLowerCase();
 
+      // If search is found then sort the albums,
+      // return matched
       setSortedAlbums(
         albums.filter((album) => {
           const artist = album['im:artist'].label.toLowerCase();
@@ -49,12 +52,15 @@ function App() {
   }, [albums, debouncedSearch])
 
   useEffect(() => {
+    // Filter and show albums that match the selected category option(s)
+    // else, display all albums
     setSortedAlbums(activeCategory.length
       ? albums.filter(album => activeCategory.includes(album.category.attributes.label))
       : albums
     );
   }, [activeCategory]);
 
+  // Change the order of the albums depending on selected item in the 'Sort' dropdown
   const handleSortData = (data: string) => {
     const [name, type] = data.split('-');
     const sortKeys: SortKeysInterface = {
@@ -90,8 +96,10 @@ function App() {
     setSortedAlbums(sorted);
   }
 
+  // Filter and display the selected category option(s)
   const handleCategoryData = (data: string | string[]) => {
     setActiveCategory((prevState) => {
+      // Add or remove item from the 'activeCategory' state
       const toggleItem = (state: Set<string>, item: string) => {
         state.has(item)
           ? state.delete(item)
@@ -108,6 +116,7 @@ function App() {
     });
   };
 
+  // Gets input from Search component
   const handleSearch = (data: string) => {
     setSearch(data);
   }
