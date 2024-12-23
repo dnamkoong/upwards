@@ -91,11 +91,21 @@ const Albums = () => {
     setSortedAlbums(sorted);
   }
 
-  const handleCategoryData = (data: string[]) => {
+  const handleCategoryData = (data: string | string[]) => {
     setActiveCategory((prevState) => {
-      return prevState.includes(data)
-        ? prevState.filter((prev) => prev !== data)
-        : [...prevState, data]
+      const toggleItem = (state: Set<string>, item: string) => {
+        state.has(item)
+          ? state.delete(item)
+          : state.add(item);
+
+        return state;
+      };
+
+      const updatedSet = Array.isArray(data)
+        ? data.reduce(toggleItem, new Set(prevState))
+        : toggleItem(new Set(prevState), data);
+
+      return Array.from(updatedSet);
     });
   };
 
@@ -112,13 +122,13 @@ const Albums = () => {
 
       <SortBy
         type='Sort'
-        data={sortOptions}
+        dataSort={sortOptions}
         handleSortByData={handleSortData}
       />
 
       <SortBy
         type='Category'
-        data={category}
+        dataCategory={category}
         handleSortByData={handleCategoryData}
       />
 

@@ -7,11 +7,12 @@ import { SortOptionsInterface } from '../../../types/sort';
 
 interface SortByProps {
   type: 'Sort' | 'Category';
-  handleSortByData: (data: string | string[]) => void;
-  data: string[] | SortOptionsInterface;
+  handleSortByData: (data: string) => void;
+  dataSort?: SortOptionsInterface | SortOptionsInterface[];
+  dataCategory?: string[];
 }
 
-const SortBy = ({ type, handleSortByData, data }: SortByProps) => {
+const SortBy = ({ type, handleSortByData, dataSort, dataCategory }: SortByProps) => {
   const [sortBy, setSortBy] = useState<string | string[]>([]);
   const {
     isActive,
@@ -53,31 +54,34 @@ const SortBy = ({ type, handleSortByData, data }: SortByProps) => {
         ref={hookRef}
       >
 
-        {type === 'Sort' ? (
-          data.map((option) => (
-            <div
-              key={`${option.name}-${option.type}`}
-              className={classNames(styles.option, {
-                [styles.active]: sortBy === `${option.name}-${option.type}`,
-              })}
-              onClick={() => handleSort(`${option.name}-${option.type}`)}
-            >
-              {option.label}
-            </div>
-          ))
-        ) : (
-          data.map((item) => (
-            <div
-              key={item}
-              className={classNames(styles.option, {
-                [styles.active]: sortBy.includes(item),
-              })}
-              onClick={() => handleSort(item)}
-            >
-              {item}
-            </div>
-          ))
-        )}
+        {
+          Array.isArray(dataSort)
+          && type === 'Sort' ? (
+            dataSort.map((option) => (
+              <div
+                key={`${option.name}-${option.type}`}
+                className={classNames(styles.option, {
+                  [styles.active]: sortBy === `${option.name}-${option.type}`,
+                })}
+                onClick={() => handleSort(`${option.name}-${option.type}`)}
+              >
+                <p>{option.label}</p>
+              </div>
+            ))
+          ) : (
+            dataCategory?.map((item) => (
+              <div
+                key={item}
+                className={classNames(styles.option, {
+                  [styles.active]: sortBy.includes(item),
+                })}
+                onClick={() => handleSort(item)}
+              >
+                <p>{item}</p>
+              </div>
+            ))
+          )
+        }
       </div>
     </div>
   )
