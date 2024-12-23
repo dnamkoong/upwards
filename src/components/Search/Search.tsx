@@ -1,4 +1,4 @@
-import { Icon } from '../../Icon/Icon';
+import { Icon } from '../Icon/Icon';
 import styles from './Search.module.scss';
 
 interface SearchProps {

@@ -1,9 +1,9 @@
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import styles from './Album.module.scss';
-import Modal from '../../Modal/Modal';
-import { AlbumInterface } from '../../../types/albums';
-import { useDetectClick } from '../../../hooks/useDetectClick';
+import { AlbumInterface } from '../../types/albums';
+import { useDetectClick } from '../../hooks/useDetectClick';
+import Modal from '../Modal/Modal';
+import styles from './Album.module.scss'
 
 interface AlbumProps {
   album: AlbumInterface;
