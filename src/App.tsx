@@ -9,6 +9,7 @@ import { useAlbums } from './hooks/useAlbums';
 import { useDebounce } from "./hooks/useDebounce";
 import { sortOptions } from "./utils/sortOptions";
 import styles from './App.module.scss';
+import Icon from "./components/Icon/Icon";
 
 function App() {
   const {
@@ -21,6 +22,8 @@ function App() {
   const [sortedAlbums, setSortedAlbums] = useState<AlbumInterface[]>(albums);
   const [search, setSearch] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<string[]>([]);
+  const [showFavorites, setShowFavorites] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<AlbumInterface[]>([]);
   const debouncedSearch = useDebounce<string>(search);
 
   useEffect(() => {
@@ -59,6 +62,15 @@ function App() {
       : albums
     );
   }, [activeCategory]);
+
+  useEffect(() => {
+    // Display favorite albums if favorite albums have been selected
+    // else, display default albums
+    setSortedAlbums(showFavorites && favorites.length
+      ? favorites
+      : albums
+    )
+  }, [showFavorites, favorites])
 
   // Change the order of the albums depending on selected item in the 'Sort' dropdown
   const handleSortData = (data: string) => {
@@ -121,6 +133,14 @@ function App() {
     setSearch(data);
   }
 
+  // Add to favorite list
+  const handleFavorite = (data: AlbumInterface) => {
+    setFavorites((prevState) =>
+      prevState.includes(data)
+        ? prevState.filter((prev) => prev.id.attributes['im:id'] !== data.id.attributes['im:id'])
+        : [...prevState, data]
+    );
+  }
 
   if (loading) {
     return <Loading />
@@ -148,11 +168,22 @@ function App() {
         handleSortByData={handleCategoryData}
       />
 
+      <button
+        onClick={() => setShowFavorites((prev) => !prev)}
+        disabled={!favorites.length}
+      >
+        <Icon type='Favorite'  />
+        Favorites
+      </button>
+
+
       <div className={styles.albumContainer}>
         {sortedAlbums.map((album) => (
           <Album
             key={album.id.attributes['im:id']}
             album={album}
+            handleFavorite={handleFavorite}
+            favorites={favorites}
           />
         ))}
       </div>

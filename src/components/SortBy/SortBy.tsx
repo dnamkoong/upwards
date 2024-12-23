@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import classNames from 'classnames';
-import styles from "./SortBy.module.scss";
 import { SortOptionsInterface } from '../../types/sort';
 import { useDetectClick } from '../../hooks/useDetectClick';
-import { Icon } from '../Icon/Icon';
+import Icon from '../Icon/Icon';
+import styles from "./SortBy.module.scss";
 
 interface SortByProps {
   type: 'Sort' | 'Category';
